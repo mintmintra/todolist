@@ -1,12 +1,19 @@
 import React from 'react';
 import { useState } from "react";
 import './App.css';
+import { v4 as uuidv4 } from 'uuid';
 
 function App() {
   const [name, setName] = useState("")
+  const [list,setList] = useState([])
   const submitData = (e) => {
     e.preventDefault()
-    console.log("ข้อมูลรายการ = ", name)
+    const newItem = {
+      id: uuidv4(),
+      title: name
+    }
+    setList([...list, newItem])
+    setName('')
   }
   return (
     <section className="container">
