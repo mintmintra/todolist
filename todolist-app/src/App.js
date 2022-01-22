@@ -2,6 +2,7 @@ import React from 'react';
 import { useState } from "react";
 import './App.css';
 import { v4 as uuidv4 } from 'uuid';
+import List from './components/List';
 
 function App() {
   const [name, setName] = useState("")
@@ -24,6 +25,11 @@ function App() {
           <button type="submit" className="submit-btn">เพิ่มข้อมูล</button>
         </div>
       </form>
+      <section className="list-container">
+        {list.map((data, index) => {
+          return <List key={index} {...data} />
+        })}
+      </section>
     </section>
   );
 }
