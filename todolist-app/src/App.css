@@ -56,3 +56,12 @@ h1{
   padding: 0.25rem 1rem;
   border-radius: 0.25rem;
 }
+
+.alert.error{
+  background: red;
+  color: #fff;
+}
+
+.alert.success{
+  background: greenyellow;
+}

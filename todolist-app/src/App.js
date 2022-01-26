@@ -9,20 +9,27 @@ function App() {
   const [name, setName] = useState("")
   const [list, setList] = useState([])
   
-  const [alert,setAlert] = useState({show:true,msg:'',type:''})
+  const [alert, setAlert] = useState({ show: false, msg: '', type: '' })
+  
   const submitData = (e) => {
     e.preventDefault()
+    if (!name) {
+      //แสดง Alert
+      setAlert({show:true,msg:"กรุณาป้อนข้อมูลด้วยค่ะ ",type:"error"})
+    } else {
     const newItem = {
       id: uuidv4(),
       title: name
     }
     setList([...list, newItem])
-    setName('')
+      setName('')
+      setAlert({show:true,msg:"บันทึกข้อมูลเรียบร้อย",type:"success"})
+    }
   }
   return (
     <section className="container">
       <h1>TodoList App</h1>
-      {alert.show && <Alert />}
+      {alert.show && <Alert {...alert} />}
       <form className="form-group" onSubmit={submitData}>
         <div className="form-control">
           <input type="text" className="text-input" onChange={(e)=>setName(e.target.value)} value={name} />
