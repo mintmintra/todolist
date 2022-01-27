@@ -10,6 +10,8 @@ function App() {
   const [list, setList] = useState([])
   
   const [alert, setAlert] = useState({ show: false, msg: '', type: '' })
+  const [checkEditItem, setCheckEditItem] = useState(false)
+  const [editId,setEditId] = useState('')
   
   const submitData = (e) => {
     e.preventDefault()
@@ -32,6 +34,13 @@ function App() {
     setList(result)
     setAlert({show:true,msg:"ลบข้อมูลเรียบร้อย",type:"error"})
   }
+
+  const editItem = (id) => {
+    setCheckEditItem(true)
+    setEditId(id)
+    const searchItem = list.find((item) => item.id === id)
+    setName(searchItem.title)
+  }
   return (
     <section className="container">
       <h1>TodoList App</h1>
@@ -39,12 +48,14 @@ function App() {
       <form className="form-group" onSubmit={submitData}>
         <div className="form-control">
           <input type="text" className="text-input" onChange={(e)=>setName(e.target.value)} value={name} />
-          <button type="submit" className="submit-btn">เพิ่มข้อมูล</button>
+          <button type="submit" className="submit-btn">
+            {checkEditItem ? "แก้ไขข้อมูล" : "เพิ่มข้อมูล "}
+          </button>
         </div>
       </form>
       <section className="list-container">
         {list.map((data, index) => {
-          return <List key={index} {...data} removeItem={removeItem} />
+          return <List key={index} {...data} removeItem={removeItem} editItem={editItem} />
         })}
       </section>
     </section>
