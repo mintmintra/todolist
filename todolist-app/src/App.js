@@ -26,6 +26,12 @@ function App() {
       setAlert({show:true,msg:"บันทึกข้อมูลเรียบร้อย",type:"success"})
     }
   }
+  const removeItem = (id) => {
+    console.log(id);
+    const result = list.filter((item) => item.id !== id)
+    setList(result)
+    setAlert({show:true,msg:"ลบข้อมูลเรียบร้อย",type:"error"})
+  }
   return (
     <section className="container">
       <h1>TodoList App</h1>
@@ -38,7 +44,7 @@ function App() {
       </form>
       <section className="list-container">
         {list.map((data, index) => {
-          return <List key={index} {...data} />
+          return <List key={index} {...data} removeItem={removeItem} />
         })}
       </section>
     </section>
