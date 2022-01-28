@@ -11,14 +11,27 @@ function App() {
   
   const [alert, setAlert] = useState({ show: false, msg: '', type: '' })
   const [checkEditItem, setCheckEditItem] = useState(false)
-  const [editId,setEditId] = useState('')
+  const [editId,setEditId] = useState(null)
   
   const submitData = (e) => {
     e.preventDefault()
     if (!name) {
       //แสดง Alert
       setAlert({show:true,msg:"กรุณาป้อนข้อมูลด้วยค่ะ ",type:"error"})
-    } else {
+    } else if (checkEditItem && name) {
+      //กระบวนการอัพเดตข้อมูลรายการที่ต้องการแก้ไข
+      const result = list.map((item) => {
+        if (item.id === editId) {
+          return {...item,title:name}
+        }
+        return item
+      })
+      setList(result)
+      setName('')
+      setCheckEditItem(false)
+      setEditId(null)
+      setAlert({show:true,msg:"แก้ไขข้อมูลเรียบร้อย",type:"success"})
+    }else {
     const newItem = {
       id: uuidv4(),
       title: name
